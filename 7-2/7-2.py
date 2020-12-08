@@ -11,7 +11,7 @@ class Bag:
 		return output
 
 def InputBags():	
-	with open("test-input.txt", "r") as file:
+	with open("input.txt", "r") as file:
 			inputs = [line.strip() for line in file]
 
 	for line in inputs:
@@ -32,11 +32,13 @@ def InputBags():
 		temp_BagRule = None
 
 def CountBags(bagToCheck, level):
+	totalBags = 0
 	for bag in filter(lambda x: x.bag == bagToCheck, Bags):
-		for subBag in bag.subBags
-			factor = subBag[0]
-			
-			
+		for subBag in bag.subBags:
+			factor = int(subBag[0])
+			includeBags = CountBags(subBag[1], (level + 1))
+			totalBags += int(subBag[0]) + (factor * includeBags)
+	return totalBags
 
 def CheckIfBagIsContained(searchQuery, bagToCheck, level):
 	flag = False
@@ -64,9 +66,11 @@ counter = 0
 InputBags()
 # containFlag = False
 
+print("Shiny Gold contains " + str(CountBags("shiny gold", 1)) + " bags.")
 	
-for bag in Bags:
-	print(bag)
+# for bag in Bags:
+	# counter = CountBags(bag.bag, 1)
+	# print(bag.bag + " includes " + str(counter) + " bags.")
 	# print("0 " + bag.bag)
 	# containFlag = False
 	# containFlag = CheckIfBagIsContained("shiny gold", bag.bag, 1)
